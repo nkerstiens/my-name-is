@@ -3,49 +3,31 @@ $(function() {
 
     // $('#doge-meme-pic').draggable().droppable();
 
-    var $start_counter = $( "#event-start" ),
-    $drag_counter = $( "#event-drag" ),
-    $stop_counter = $( "#event-stop" ),
-    counts = [ 0, 0, 0 ];
-
-  $( "#doge-meme-pic" ).draggable({
-    start: function() {
-      counts[ 0 ]++;
-      updateCounterStatus( $start_counter, counts[ 0 ] );
-    },
-    drag: function() {
-      counts[ 1 ]++;
-      updateCounterStatus( $drag_counter, counts[ 1 ] );
-    //   calculateWow($new_count); 
-    },
+  $("#doge-meme-pic").draggable({
+    containment: "#containment-wrapper",
+    scroll: false,
     stop: function() {
-      counts[ 2 ]++;
-      updateCounterStatus( $stop_counter, counts[ 2 ] );
+      calculateWow();
     }
-  });
 
-  function updateCounterStatus( $event_counter, new_count ) {
-    // first update the status visually...
-    if ( !$event_counter.hasClass( "ui-state-hover" ) ) {
-      $event_counter.addClass( "ui-state-hover" )
-        .siblings().removeClass( "ui-state-hover" );
-    }
-    // ...then update the numbers
-    $( "span.count", $event_counter ).text( new_count );
+     });
 
-    calculateWow(new_count); 
-  }
+function calculateWow(){
 
-function calculateWow (xyz){
+   var x = $("#doge-meme-pic").position();
+   var wow = x.top + x.left;
+  
+  
+  if(wow < 500){
 
-    if(xyz < 500){
-
-        console.log('not much wow (' + xyz +  ')');
+        console.log('not much wow (' + wow +  ')');
+        $('#wow-output').html('<h2> not much wow (' + wow + ')</h2>')
 
     }
     else {
 
-        console.log('so much wow (' + xyz +  ')!!!!');
+        console.log('so much wow (' + wow +  ')!!!!');
+        $('#wow-output').html('<h2> So much WOW (' + wow + ')!!!</h2>')
     }
 }
 
